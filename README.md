@@ -124,3 +124,4 @@ Add the generated script tag to your website's `<body>`:
 # campus-assistant
 # campus-assistant
 # campus-assistant
+# campus-assistant
