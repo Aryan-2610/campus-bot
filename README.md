@@ -123,3 +123,4 @@ Add the generated script tag to your website's `<body>`:
 | `TesseractNotFoundError` | Tesseract not installed | Install Tesseract and ensure it is in your system PATH. |# campus-assistant
 # campus-assistant
 # campus-assistant
+# campus-assistant

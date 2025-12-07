@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Agnostic Bot | Project Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-button.active {
+            border-color: #0d9488; /* teal-600 */
+            color: #0d9488;
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        /* Custom Scrollbar Styling for Light Theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f4f6; /* gray-100 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #d1d5db; /* gray-300 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #9ca3af; /* gray-400 */
+        }
+        /* For Firefox */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db #f3f4f6;
+        }
+        /* Style for code blocks - remains dark for contrast */
+        .code-block {
+            background-color: #1f2937; /* A dark background for code */
+            color: #d1d5db; /* Light text for code */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            position: relative;
+        }
+        .code-block pre, .code-block code {
+            background-color: transparent !important;
+            color: inherit !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-700">
+
+    <header class="bg-white/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-gray-900">Language Agnostic Bot | Documentation</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#overview" class="text-gray-500 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Overview</a>
+                        <a href="#architecture" class="text-gray-500 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Architecture</a>
+                        <a href="#setup" class="text-gray-500 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Setup</a>
+                        <a href="#maintenance" class="text-gray-500 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Maintenance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+
+        <section id="overview" class="text-center py-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
+                <span class="block">Neural Nomads:</span>
+                <span class="block text-teal-600">The Language Agnostic Bot</span>
+            </h1>
+            <h2 class="mt-4 text-xl md:text-2xl font-semibold text-gray-800">
+                Comprehensive Technical Documentation & Maintenance Guide
+            </h2>
+            <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-600">
+                Bridging communication gaps in educational institutions with a state-of-the-art, multilingual AI assistant. This document provides a complete guide for developers to understand, set up, and maintain the project.
+            </p>
+        </section>
+
+        <main class="mt-8">
+            <div class="border-b border-gray-200 mb-8">
+                <nav id="tab-nav" class="flex flex-wrap -mb-px" aria-label="Tabs">
+                    <button data-tab="overview-tab" class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-teal-600 border-transparent mr-8">Overview</button>
+                    <button data-tab="architecture-tab" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-teal-600 border-transparent mr-8">System Architecture</button>
+                    <button data-tab="setup-tab" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-teal-600 border-transparent mr-8">Installation & Setup</button>
+                    <button data-tab="maintenance-tab" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-teal-600 border-transparent mr-8">Maintenance & Troubleshooting</button>
+                    <button data-tab="api-tab" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-teal-600 border-transparent mr-8">API Reference</button>
+                    <button data-tab="modules-tab" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-teal-600 border-transparent">Code Modules</button>
+                </nav>
+            </div>
+
+            <div id="tab-content">
+                <div id="overview-tab" class="tab-panel active space-y-12">
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4" id="architecture">1.1 Problem Statement</h3>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            University and college administrative offices are consistently strained by a high volume of repetitive student inquiries. Questions about deadlines, fees, forms, and procedures lead to long queues and increased workload for administrative staff. This issue is significantly compounded by language barriers, creating communication gaps that prevent students—especially those from diverse linguistic backgrounds—from getting quick, clear, and accurate answers to their critical questions.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">1.2 Our Solution</h3>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            The Language Agnostic Bot is a sophisticated, AI-powered chatbot designed to resolve this challenge. It provides an instant, 24/7, and reliable source of information for students. By ingesting all official college documents—such as PDFs, circulars, and notices—it creates a comprehensive knowledge base. The bot can understand and respond to queries in all 22 constitutional Indian languages, effectively eliminating communication barriers. Furthermore, it features an intuitive admin dashboard that empowers non-technical staff to easily manage the bot's knowledge, view analytics, and handle escalated queries, ensuring the system is both powerful and easy to maintain.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">1.3 Key Features (USPs)</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+                            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-bold text-gray-900">Full Multilingual Support</h4>
+                                <p class="mt-2 text-gray-600">Text and voice support for all 22 constitutional languages using advanced translation and speech-to-text models.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-bold text-gray-900">Omnichannel Presence</h4>
+                                <p class="mt-2 text-gray-600">A single knowledge base provides consistent answers across the college website, WhatsApp, and Telegram.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-bold text-gray-900">Plug & Play Integration</h4>
+                                <p class="mt-2 text-gray-600">Effortless deployment on any website by simply embedding a single HTML script tag.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-bold text-gray-900">Advanced RAG Pipeline</h4>
+                                <p class="mt-2 text-gray-600">Context-aware conversations with an intelligent fallback to ticket creation when an answer isn't available.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-bold text-gray-900">Self-Improving Knowledge Base</h4>
+                                <p class="mt-2 text-gray-600">Automatically clusters user queries to identify trends and suggest new FAQs, continuously improving its accuracy.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-bold text-gray-900">Data Privacy Options</h4>
+                                <p class="mt-2 text-gray-600">Flexible deployment with support for cloud APIs (Gemini/GPT) or private, on-premise models like LLaMA.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="architecture-tab" class="tab-panel space-y-12">
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-6">2.1 High-Level RAG Pipeline</h3>
+                        <div class="bg-white p-6 rounded-lg flex justify-center items-center border border-gray-200">
+                            <svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg">
+                                <style>
+                                    .box { fill: #f9fafb; stroke: #e5e7eb; stroke-width: 1.5; rx: 8; }
+                                    .box-gen { fill: #dcfce7; stroke: #86efac; }
+                                    .label { font-family: 'Inter', sans-serif; font-size: 14px; fill: #1f2937; text-anchor: middle; }
+                                    .arrow { stroke: #0d9488; stroke-width: 2; marker-end: url(#arrowhead); }
+                                    .dashed-arrow { stroke: #0d9488; stroke-width: 2; stroke-dasharray: 5,5; marker-end: url(#arrowhead); }
+                                </style>
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#0d9488" />
+                                    </marker>
+                                </defs>
+                                <rect x="10" y="70" width="120" height="80" class="box" /><text x="70" y="105" class="label">Documents</text><text x="70" y="125" class="label">(PDFs, etc.)</text>
+                                <line x1="130" y1="110" x2="160" y2="110" class="arrow" />
+                                <rect x="160" y="70" width="140" height="80" class="box" /><text x="230" y="95" class="label">Indexing</text><text x="230" y="115" class="label">(OCR, Splitting,</text><text x="230" y="135" class="label">Embedding)</text>
+                                <line x1="300" y1="110" x2="330" y2="110" class="arrow" />
+                                <rect x="330" y="70" width="120" height="80" class="box" /><text x="390" y="115" class="label">Vector Store</text>
+                                <rect x="520" y="10" width="120" height="50" class="box" /><text x="580" y="40" class="label">User Query</text>
+                                <line x1="580" y1="60" x2="580" y2="90" class="arrow" />
+                                <rect x="500" y="90" width="160" height="60" class="box" /><text x="580" y="115" class="label">Query Construction</text><text x="580" y="135" class="label">& Translation</text>
+                                <line x1="500" y1="120" x2="450" y2="120" class="arrow" />
+                                <rect x="500" y="170" width="160" height="40" class="box-gen" /><text x="580" y="195" class="label">LLM Generation</text>
+                                <line x1="420" y1="150" x2="500" y2="180" class="arrow" /><text x="470" y="155" class="label" style="font-size:12px;">Context</text>
+                                <line x1="580" y1="150" x2="580" y2="170" class="dashed-arrow" /><text x="635" y="165" class="label" style="font-size:12px;">Original Query</text>
+                                <line x1="660" y1="190" x2="720" y2="190" class="arrow" />
+                                <rect x="720" y="170" width="70" height="40" class="box" /><text x="755" y="195" class="label">Answer</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">2.2 Core Components Explained</h3>
+                        <div class="space-y-6">
+                            <div class="bg-white p-5 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-semibold text-gray-900">Flask Backend (`app.py`)</h4>
+                                <p class="mt-2 text-gray-600">This is the core of the application. It's a Python Flask server that exposes all REST API endpoints for the frontend, handles chat requests via Socket.IO for real-time communication, and manages database interactions with SQLAlchemy.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-semibold text-gray-900">Data Ingestion (`ingest.py`, `run_ingestion.py`)</h4>
+                                <p class="mt-2 text-gray-600">A dedicated background service that continuously monitors the `data/` directory. When new documents are added, it uses `utils.py` to extract text (including OCR for scanned PDFs), splits the text into manageable chunks, generates vector embeddings using Google's models, and stores them in the ChromaDB vector database for efficient retrieval.</p>
+                            </div>
+                             <div class="bg-white p-5 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-semibold text-gray-900">RAG Core (`rag_chat.py`)</h4>
+                                <p class="mt-2 text-gray-600">This module contains the primary chat logic. When a user query is received, it queries the ChromaDB vector store to find the most relevant document chunks. It then constructs a comprehensive prompt, including the retrieved context and recent conversation history, and sends it to the Gemini LLM. It also manages the stateful fallback mechanism, offering to create a support ticket if it cannot find a confident answer.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-semibold text-gray-900">Multilingual Engine (`translator.py`)</h4>
+                                <p class="mt-2 text-gray-600">This crucial component makes the bot language-agnostic. It uses the powerful IndicTrans2 model from AI4Bharat to translate any incoming user query into English, which is the base language for the RAG pipeline. After the English response is generated by the LLM, this module translates it back into the user's original language, ensuring a seamless multilingual experience.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-semibold text-gray-900">Database (`models.py`)</h4>
+                                <p class="mt-2 text-gray-600">Defines the application's entire data schema using SQLAlchemy ORM. It includes tables for storing conversation logs, user-created FAQs, raised support tickets, and the overall bot configuration settings from the admin dashboard.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-semibold text-gray-900">Automated FAQ Generation (`cluster_faq.py`)</h4>
+                                <p class="mt-2 text-gray-600">An offline script that enhances the bot's knowledge. It ingests historical conversation logs, uses SentenceTransformers to create embeddings for user queries, and applies KMeans clustering to group similar questions. Each cluster is then sent to Gemini to synthesize a representative question-answer pair, which can be added to the FAQ database, allowing the bot to improve over time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="setup-tab" class="tab-panel space-y-12">
+                     <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4" id="setup">3.1 Prerequisites</h3>
+                        <p class="mb-4 text-gray-700">Before you begin, ensure you have the following software installed on your system:</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><strong>Python 3.9+</strong> and <strong>Pip</strong></li>
+                            <li>A virtual environment tool (like `venv`)</li>
+                            <li>Git for cloning the repository</li>
+                            <li>
+                                <strong>Tesseract OCR Engine:</strong> This is a system-level dependency.
+                                <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                    <li><a href="https://github.com/tesseract-ocr/tessdoc" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline">Official Installation Guide</a></li>
+                                    <li>On Debian/Ubuntu: `sudo apt-get install tesseract-ocr`</li>
+                                    <li>On macOS (via Homebrew): `brew install tesseract`</li>
+                                    <li>Ensure the Tesseract executable is in your system's PATH.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">3.2 Initial Setup</h3>
+                        <p class="mb-4 text-gray-700">Clone the repository and set up a Python virtual environment.</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash"># 1. Clone the repository
+git clone https://github.com/your-username/language-agnostic-bot.git
+
+# 2. Navigate into the project directory
+cd language-agnostic-bot
+
+# 3. Create a Python virtual environment
+python3 -m venv venv
+
+# 4. Activate the virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">3.3 Installing Dependencies</h3>
+                        <p class="mb-4 text-gray-700">First, create a file named `requirements.txt` in the project root with the following content. Then, install all required packages using pip.</p>
+                         <div class="code-block mb-4">
+                            <pre><code class="language-txt"># requirements.txt
+Flask
+Flask-Cors
+Flask-SocketIO
+Flask-SQLAlchemy
+python-dotenv
+langchain
+langchain-google-genai
+chromadb
+nest-asyncio
+torch
+transformers
+sentencepiece
+sentence-transformers
+scikit-learn
+google-generativeai
+pytesseract
+pdf2image
+PyPDF2
+Werkzeug
+gunicorn # For production deployment
+</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-bash">pip install -r requirements.txt</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">3.4 Environment Configuration</h3>
+                        <p class="mb-4 text-gray-700">Create a `.env` file in the root of the project directory. This file will store your secret API keys. Copy the following template and replace the placeholder with your actual Google AI API key.</p>
+                         <div class="code-block">
+                            <pre><code class="language-env"># .env
+GOOGLE_API_KEY="YOUR_GEMINI_API_KEY_HERE"
+
+# Optional: Add keys for WhatsApp (Twilio) or Telegram if you enable those integrations
+# TWILIO_ACCOUNT_SID="..."
+# TWILIO_AUTH_TOKEN="..."
+# TELEGRAM_BOT_TOKEN="..."
+</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">3.5 Database Initialization</h3>
+                        <p class="text-gray-700">The application uses SQLite by default. The database file (`app.db`) will be created automatically in an `instance` folder the first time you run the Flask application. No manual database setup is required for local development.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">3.6 Running the Application</h3>
+                        <p class="mb-4 text-gray-700">The application consists of two main processes that need to be run in separate terminals: the data ingestion service and the main web server.</p>
+                        
+                        <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-2">Step 1: Start the Data Ingestion Service</h4>
+                        <p class="mb-4 text-gray-700">This service watches the `data/` folder for new documents to process. Before running it, create a `data` directory in the project root and place some sample PDF files inside it.</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash"># In your first terminal (make sure venv is active)
+# Create the data directory if it doesn't exist
+mkdir -p data
+
+# Run the ingestion script
+python run_ingestion.py
+</code></pre>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500">This script will run indefinitely, checking for new files every 60 seconds.</p>
+
+                        <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-2">Step 2: Start the Main Flask Application</h4>
+                        <p class="mb-4 text-gray-700">This command starts the web server, making the chatbot and admin dashboard accessible.</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash"># In your second terminal (make sure venv is active)
+flask run --port 5001</code></pre>
+                        </div>
+                        <p class="mt-4 text-gray-700">Your application is now running and accessible at <a href="http://127.0.0.1:5001" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline">http://127.0.0.1:5001</a>.</p>
+                    </div>
+                </div>
+
+                <div id="maintenance-tab" class="tab-panel space-y-12">
+                     <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4" id="maintenance">4.1 System Monitoring</h3>
+                        <div class="space-y-4 text-gray-700">
+                            <p><strong>Checking Service Status:</strong> The simplest way to monitor the system is to watch the console output of the two running processes. The `run_ingestion.py` terminal will print messages when it checks for files or processes them. The `flask run` terminal will show API requests, database queries, and any runtime errors.</p>
+                            <p><strong>Database Health:</strong> The application uses a SQLite database file located at `instance/app.db`. You can use a free tool like <a href="https://sqlitebrowser.org/" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline">DB Browser for SQLite</a> to open this file and visually inspect the tables (`conversations`, `tickets`, `faqs`) to ensure data is being saved correctly.</p>
+                             <p><strong>Vector Store Health:</strong> The ChromaDB vector store is located in the `db/` directory. If this directory contains files like `chroma.sqlite3` and several `.bin` files, it means the ingestion service has successfully created and populated the vector collection.</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">4.2 Common Errors & Debugging Steps</h3>
+                        <div class="space-y-6">
+                            <div class="bg-white p-5 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-semibold text-gray-900">Error 1: `ModuleNotFoundError: No module named '...'`</h4>
+                                <p class="mt-2 text-gray-600"><strong>Cause:</strong> A required Python package is missing from your virtual environment, or the environment is not activated.</p>
+                                <p class="mt-2 text-gray-600"><strong>Solution:</strong>
+                                    <ol class="list-decimal list-inside mt-1">
+                                        <li>Make sure your virtual environment is active (your command prompt should be prefixed with `(venv)`).</li>
+                                        <li>Run `pip install -r requirements.txt` again to ensure all dependencies are installed.</li>
+                                    </ol>
+                                </p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-semibold text-gray-900">Error 2: `google.auth.exceptions.DefaultCredentialsError`</h4>
+                                <p class="mt-2 text-gray-600"><strong>Cause:</strong> The application cannot find your Google API key. This usually means the `.env` file is missing, misnamed, or the `GOOGLE_API_KEY` variable is not set correctly.</p>
+                                <p class="mt-2 text-gray-600"><strong>Solution:</strong>
+                                    <ol class="list-decimal list-inside mt-1">
+                                        <li>Ensure a file named exactly `.env` exists in the project's root directory.</li>
+                                        <li>Verify that the file contains the line `GOOGLE_API_KEY="your-key-here"` with your actual key.</li>
+                                        <li>Restart the Flask server and ingestion script after creating or modifying the `.env` file.</li>
+                                    </ol>
+                                </p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-gray-200">
+                                <h4 class="text-lg font-semibold text-gray-900">Error 3: `pytesseract.TesseractNotFoundError`</h4>
+                                <p class="mt-2 text-gray-600"><strong>Cause:</strong> The Tesseract OCR engine is not installed on the operating system, or its location is not included in the system's PATH environment variable.</p>
+                                <p class="mt-2 text-gray-600"><strong>Solution:</strong> Follow the installation instructions for your OS (see Prerequisites section). After installation, you may need to restart your terminal or your computer for the PATH changes to take effect.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">4.3 Backup and Recovery</h3>
+                        <p class="text-gray-700">Regular backups are crucial. The two most important components to back up are the application database and the vector store.</p>
+                        <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-2">Database Backup</h4>
+                        <div class="code-block">
+                            <pre><code class="language-bash"># Create a backups directory
+mkdir -p backups
+# Copy the database file with a timestamp
+cp instance/app.db backups/app_backup_$(date +%Y%m%d%H%M%S).db</code></pre>
+                        </div>
+                         <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-2">Vector Store Backup</h4>
+                         <p class="mb-4 text-gray-700">The vector store contains the processed embeddings of all your documents. Re-creating it can be time-consuming, so it's wise to back up the entire `db/` directory.</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash"># Archive the entire db directory
+tar -czvf backups/vector_store_backup_$(date +%Y%m%d%H%M%S).tar.gz db/</code></pre>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div id="api-tab" class="tab-panel">
+                     <h3 class="text-2xl font-bold text-teal-600 mb-6">5. API Reference</h3>
+                     <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg border border-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Endpoint</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap font-mono text-sm text-gray-800">/api/chat</td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">POST</span></td>
+                                    <td class="px-6 py-4 text-gray-600">Handles a user chat message, performs RAG, and returns a response. Body: `{"query": "...", "language": "en-US"}`</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap font-mono text-sm text-gray-800">/api/documents</td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">GET</span></td>
+                                    <td class="px-6 py-4 text-gray-600">Returns a list of all ingested documents.</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap font-mono text-sm text-gray-800">/api/documents</td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">POST</span></td>
+                                    <td class="px-6 py-4 text-gray-600">Uploads a new document file for ingestion (multipart/form-data).</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap font-mono text-sm text-gray-800">/api/documents/&lt;filename&gt;</td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">DELETE</span></td>
+                                    <td class="px-6 py-4 text-gray-600">Deletes a document from the data folder.</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap font-mono text-sm text-gray-800">/api/tickets</td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">GET</span></td>
+                                    <td class="px-6 py-4 text-gray-600">Retrieves all support tickets, with optional status filtering.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                     </div>
+                </div>
+
+                <div id="modules-tab" class="tab-panel space-y-6">
+                    <h3 class="text-2xl font-bold text-teal-600 mb-6">6. Code Modules Explained</h3>
+                     <div class="space-y-4">
+                        <div class="bg-white p-5 rounded-lg border border-gray-200">
+                            <h4 class="text-lg font-semibold text-gray-900 font-mono">app.py</h4>
+                            <p class="mt-2 text-gray-600">The main entry point of the web application. It initializes the Flask app, configures CORS, Socket.IO, and the database. It defines all API endpoints for managing documents, FAQs, tickets, and handling chat requests. It also serves the frontend admin panel and the embeddable chat widget.</p>
+                        </div>
+                       <div class="bg-white p-5 rounded-lg border border-gray-200">
+                           <h4 class="text-lg font-semibold text-gray-900 font-mono">rag_chat.py</h4>
+                           <p class="mt-2 text-gray-600">The core logic for the Retrieval-Augmented Generation (RAG) process. This module handles user queries by retrieving relevant context from the ChromaDB vector store, constructing a prompt with conversation history, invoking the Gemini LLM for a response, and managing the fallback logic to raise a support ticket when information is unavailable.</p>
+                       </div>
+                       <div class="bg-white p-5 rounded-lg border border-gray-200">
+                           <h4 class="text-lg font-semibold text-gray-900 font-mono">ingest.py</h4>
+                           <p class="mt-2 text-gray-600">Responsible for processing source documents. It reads files from the `data/` directory, uses functions from `utils.py` to extract text, splits the text into chunks, generates embeddings using the Google Generative AI embeddings model, and adds these embeddings to the ChromaDB collection for future retrieval.</p>
+                       </div>
+                       <div class="bg-white p-5 rounded-lg border border-gray-200">
+                           <h4 class="text-lg font-semibold text-gray-900 font-mono">translator.py</h4>
+                           <p class="mt-2 text-gray-600">Provides the multilingual capabilities. It contains functions to translate text from an Indian language to English (using the `xx2en` model) before it enters the RAG pipeline, and to translate the English response back to the user's original language (using the `en2xx` model), powered by AI4Bharat's IndicTrans2.</p>
+                       </div>
+                       <div class="bg-white p-5 rounded-lg border border-gray-200">
+                           <h4 class="text-lg font-semibold text-gray-900 font-mono">models.py</h4>
+                           <p class="mt-2 text-gray-600">Defines the database schema using Flask-SQLAlchemy. It contains the data models for `Conversation` logs, `FAQ` entries, bot `BotConfig` settings, and support `Ticket` information, mapping Python classes to database tables.</p>
+                       </div>
+                        <div class="bg-white p-5 rounded-lg border border-gray-200">
+                           <h4 class="text-lg font-semibold text-gray-900 font-mono">utils.py</h4>
+                           <p class="mt-2 text-gray-600">A collection of utility functions, primarily for text extraction. It includes functions to extract text from standard PDFs using `PyPDF2` and a fallback function to perform Optical Character Recognition (OCR) on scanned or image-based PDFs using `pytesseract` and `pdf2image`.</p>
+                       </div>
+                       <div class="bg-white p-5 rounded-lg border border-gray-200">
+                           <h4 class="text-lg font-semibold text-gray-900 font-mono">cluster_faq.py</h4>
+                           <p class="mt-2 text-gray-600">An offline script for continuous improvement of the knowledge base. It reads historical user queries, clusters them based on semantic similarity using `sentence-transformers` and `scikit-learn`, and then uses the Gemini LLM to synthesize a canonical question and answer for each cluster, which can then be added as a new FAQ.</p>
+                       </div>
+                     </div>
+               </div>
+
+            </div>
+        </main>
+        
+        <footer class="text-center py-12 mt-16 border-t border-gray-200">
+            <p class="text-gray-500">Neural Nomads | Smart India Hackathon 2025</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tab functionality
+            const tabNav = document.getElementById('tab-nav');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabNav.addEventListener('click', (e) => {
+                if (e.target.classList.contains('tab-button')) {
+                    const tabId = e.target.getAttribute('data-tab');
+
+                    tabButtons.forEach(button => button.classList.remove('active'));
+                    e.target.classList.add('active');
+
+                    tabPanels.forEach(panel => {
+                        if (panel.id === tabId) {
+                            panel.classList.add('active');
+                        } else {
+                            panel.classList.remove('active');
+                        }
+                    });
+                }
+            });
+
+            // Copy code functionality for dark code blocks
+            document.querySelectorAll('.code-block').forEach(block => {
+                const pre = block.querySelector('pre');
+                if (!pre) return;
+
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-button';
+                copyButton.textContent = 'Copy';
+                block.appendChild(copyButton);
+
+                copyButton.addEventListener('click', () => {
+                    const code = pre.querySelector('code').innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        copyButton.textContent = 'Copied!';
+                        setTimeout(() => {
+                            copyButton.textContent = 'Copy';
+                        }, 2000);
+                    });
+                });
+                
+                // Styling for copy button on dark background
+                copyButton.style.position = 'absolute';
+                copyButton.style.top = '0.5rem';
+                copyButton.style.right = '0.5rem';
+                copyButton.style.backgroundColor = '#374151'; // gray-700
+                copyButton.style.color = '#e5e7eb'; // gray-200
+                copyButton.style.border = '1px solid #4b5563';
+                copyButton.style.padding = '0.25rem 0.75rem';
+                copyButton.style.borderRadius = '0.375rem';
+                copyButton.style.fontSize = '0.875rem';
+                copyButton.style.cursor = 'pointer';
+                copyButton.style.opacity = '0';
+                copyButton.style.transition = 'opacity 0.2s';
+
+                block.addEventListener('mouseover', () => { copyButton.style.opacity = '1'; });
+                block.addEventListener('mouseout', () => { copyButton.style.opacity = '0'; });
+            });
+        });
+    </script>
+
+</body>
+</html>

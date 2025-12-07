@@ -1,0 +1,8 @@
+{
+    "channels": {
+        "telegram": false,
+        "website": true,
+        "whatsapp": false
+    },
+    "isWidgetActive": true
+}

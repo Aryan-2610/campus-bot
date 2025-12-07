@@ -1,0 +1,37 @@
+/* Set the base font family and background color */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc; /* This should match the theme's default background */
+}
+
+/* Improve scrollbar aesthetics for a cleaner look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Dark mode scrollbar */
+.dark-mode ::-webkit-scrollbar-track {
+  background: #2d3748;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #4a5568;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
