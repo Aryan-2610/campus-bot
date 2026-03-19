@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Structure - DTU CampusBot</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 40px auto; padding: 20px; background: #f4f7f6; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; border-left: 5px solid #EA9320; }
+        h1 { color: #EA9320; border-bottom: 2px solid #EA9320; padding-bottom: 10px; }
+        h2 { color: #2c3e50; margin-top: 0; }
+        code { background: #eee; padding: 2px 5px; border-radius: 4px; font-weight: bold; }
+        .file-list { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+        .file-name { font-weight: bold; color: #d35400; }
+    </style>
+</head>
+<body>
+    <h1>CampusBot: Project Architecture</h1>
+    <p>A modular, production-grade <strong>Advanced RAG</strong> system designed for academic document intelligence.</p>
+
+    <div class="card">
+        <h2>📂 Root Folder: <code>campus-assistant/</code></h2>
+        <div class="file-list">
+            <div class="file-name">app.py</div>
+            <div><strong>The Gatekeeper.</strong> A Flask web server that serves the DTU clone and provides a <code>/chat</code> POST endpoint for the widget.</div>
+            
+            <div class="file-name">engine.py</div>
+            <div><strong>The Conductor.</strong> Orchestrates the entire flow: sends input to query expansion, gets context from retrieval, and generates the final JSON response.</div>
+            
+            <div class="file-name">query_processor.py</div>
+            <div><strong>The Brain.</strong> Uses LLM-based logic to detect topic changes (safety) and perform <strong>Query Decomposition</strong> (breaking complex questions into sub-parts).</div>
+            
+            <div class="file-name">retrieval.py</div>
+            <div><strong>The Librarian.</strong> Handles PDF parsing via <code>pdfplumber</code> and manages the <strong>Hybrid Search</strong> (FAISS + BM25) with RRF scoring.</div>
+            
+            <div class="file-name">prompts.py</div>
+            <div><strong>The Instruction Manual.</strong> Centralizes all LLM system prompts, JSON schemas, and expansion templates. Keeps logic clean.</div>
+            
+            <div class="file-name">.env</div>
+            <div><strong>The Vault.</strong> Stores sensitive <code>GOOGLE_API_KEY</code>.</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🎨 Frontend & Data</h2>
+        <div class="file-list">
+            <div class="file-name">static/widget.js</div>
+            <div><strong>The UI.</strong> A vanilla JS floating widget that handles the chat bubbles, formatting, and asynchronous API calls.</div>
+            
+            <div class="file-name">templates/index.html</div>
+            <div><strong>The Host.</strong> A localized clone of the DTU website where the chatbot lives.</div>
+            
+            <div class="file-name">data/</div>
+            <div><strong>The Source.</strong> Folder containing the university PDFs (policies, schedules) used for RAG grounding.</div>
+        </div>
+    </div>
+</body>
+</html>

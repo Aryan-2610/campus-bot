@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Delhi Technological University</title>
+    <style>
+        /* Basic DTU Styling to keep the look */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; }
+        #header { background: #EA9320; height: 20px; width: 100%; }
+        #nav-bar { background: #333; color: white; padding: 10px; display: flex; gap: 20px; }
+        .container { width: 1000px; margin: 0 auto; }
+        .logo-area { padding: 20px 0; }
+        .hero-content { background: #f4f4f4; padding: 50px; border-radius: 8px; margin-top: 20px; }
+        h1 { color: #EA9320; }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    
+    <div class="container">
+        <div class="logo-area">
+            <img src="https://dtu.ac.in/Web/images/ImageLogo.jpg" alt="DTU Logo">
+        </div>
+
+        <div id="nav-bar">
+            <span>About Us</span>
+            <span>Academics</span>
+            <span>Admissions</span>
+            <span>Research</span>
+        </div>
+
+        <div class="hero-content">
+            <h1>DTU Campus Assistant</h1>
+            <p>Welcome to the official DTU clone project. This site is now integrated with an <strong>Advanced RAG Chatbot</strong>.</p>
+            <hr>
+            <h3>How to test:</h3>
+            <ul>
+                <li>Place your DTU PDFs in the <code>/data</code> folder.</li>
+                <li>Click the chat bubble that appears at the bottom right.</li>
+                <li>Ask: "What is the fee structure?" or "Tell me about attendance."</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='widget.js') }}" defer></script>
+</body>
+</html>
