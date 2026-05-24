@@ -1,43 +1,44 @@
 import os
-import pdfplumber
-from langchain_community.vectorstores import FAISS
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter 
-from langchain_community.retrievers import BM25Retriever
-from langchain_core.documents import Document
+import pickle
 from dotenv import load_dotenv
 
+from langchain_community.vectorstores import FAISS
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
 load_dotenv()
+
 class CampusRetriever:
     def __init__(self):
+        # Synchronized model string to match ingest.py configuration
         self.embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
         self.vector_db = None
         self.bm25 = None
 
-    def build_index(self, folder="data"):
-        if not os.path.exists(folder): return print(f"Error: {folder} not found")
-        
-        docs = []
-        for file in os.listdir(folder):
-            if file.endswith(".pdf"):
-                path = os.path.join(folder, file)
-                ## Using pdfplumber for visual layout preservation (better for tables)
-                with pdfplumber.open(path) as pdf:
-                    full_text = ""
-                    for page in pdf.pages:
-                        page_text = page.extract_text()
-                        if page_text: full_text += page_text + "\n"
-                
-                docs.append(Document(page_content=full_text, metadata={"source": file}))
+    def build_index(self, folder="data", db_folder="db"):
+        faiss_path = db_folder
+        bm25_path = os.path.join(db_folder, "bm25.pkl")
 
-        splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-        chunks = splitter.split_documents(docs)
-        
-        self.vector_db = FAISS.from_documents(chunks, self.embeddings)
-        self.bm25 = BM25Retriever.from_documents(chunks)
-        print(f"Index built with {len(chunks)} structural chunks.")
+        # --- 1. LOCAL CACHE CHECK ---
+        if os.path.exists(faiss_path) and os.path.exists(bm25_path):
+            print(f"🔄 Found local database cache in '{db_folder}'. Loading indices...")
+            self.vector_db = FAISS.load_local(
+                faiss_path, 
+                self.embeddings, 
+                allow_dangerous_deserialization=True
+            )
+            with open(bm25_path, "rb") as f:
+                self.bm25 = pickle.load(f)
+            print("✅ Both FAISS and BM25 loaded from disk. 0 API calls used!")
+        else:
+            # Prevent accidental fallback generation
+            raise FileNotFoundError(
+                f"❌ Local database files missing in '{db_folder}'. Please run 'python ingest.py' first!"
+            )
 
     def get_fused_context(self, queries):
+        if not self.vector_db or not self.bm25:
+            return "Error: Index not built or loaded."
+
         v_docs, k_docs = [], []
         for q in queries:
             v_docs.extend(self.vector_db.as_retriever(search_kwargs={"k": 5}).invoke(q))
@@ -53,11 +54,15 @@ class CampusRetriever:
         
         context_str = ""
         for content in top_chunks:
-            source = next(d.metadata['source'] for d in v_docs + k_docs if d.page_content == content)
+            source = next((d.metadata['source'] for d in v_docs + k_docs if d.page_content == content), "unknown")
             context_str += f"[{source}]: {content}\n\n"
         return context_str
 
 if __name__ == "__main__":
     ret = CampusRetriever()
-    ret.build_index()
-    print(ret.get_fused_context(["exam schedule"]))
+    try:
+        ret.build_index()
+        print("\n--- Testing Retrieval ---")
+        print(ret.get_fused_context(["attendance"]))
+    except Exception as e:
+        print(e)

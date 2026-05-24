@@ -1,0 +1,16 @@
+# Private Environment Variables (Blocks any .env file in any nested directory)
+.env
+.env*
+
+# Python and System Cache Files
+__pycache__/
+*.pyc
+.DS_Store
+
+# IDE and Editor Cache Folders
+.vscode/
+.idea/
+tempCodeRunnerFile.py
+
+# NOTE: The db/ folder is intentionally omitted from this list 
+# so your pre-computed vector chunks are securely pushed to GitHub.

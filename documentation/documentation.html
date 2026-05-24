@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusBot Hub | Technical Documentation</title>
+    <style>
+        :root {
+            --primary: #7b1113; /* DTU Theme Maroon */
+            --primary-light: #fdf2f2;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --bg-main: #f7fafc;
+            --bg-sidebar: #ffffff;
+            --border-color: #e2e8f0;
+            --code-bg: #1a202c;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            display: flex;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 30px 20px;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-group-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin: 20px 0 10px 10px;
+            font-weight: 700;
+        }
+
+        .nav-list { list-style: none; }
+        .nav-item a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .nav-item a:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Main Content Container */
+        .content {
+            margin-left: 280px;
+            padding: 60px 80px;
+            max-width: 1000px;
+            width: calc(100% - 280px);
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 60px;
+        }
+
+        h1 { font-size: 36px; color: #1a202c; margin-bottom: 20px; font-weight: 800; }
+        h2 { font-size: 24px; color: #2d3748; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+        h3 { font-size: 18px; color: #4a5568; margin-top: 20px; margin-bottom: 10px; }
+        
+        p { margin-bottom: 15px; color: #4a5568; font-size: 16px; }
+
+        /* Code Block Styling */
+        pre {
+            background-color: var(--code-bg);
+            color: #f8f8f2;
+            padding: 18px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+            margin: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        code {
+            font-family: monospace;
+            background-color: #edf2f7;
+            color: var(--primary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre code { background-color: transparent; color: inherit; padding: 0; }
+
+        /* Info Boxes */
+        .info-note {
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        .info-warning {
+            background-color: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        /* Components Grid/Table */
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .comp-table th, .comp-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .comp-table th { background-color: #f1f5f9; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="brand">🤖 CampusBot Hub</div>
+        
+        <div class="nav-group-title">System Overview</div>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="#architecture">System Architecture</a></li>
+            <li class="nav-item"><a href="#components">Core Components</a></li>
+        </ul>
+
+        <div class="nav-group-title">Maintenance Workflows</div>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="#add-data">Adding New Data/PDFs</a></li>
+            <li class="nav-item"><a href="#update-models">Updating AI Models</a></li>
+            <li class="nav-item"><a href="#modify-prompt">Modifying Rules/Prompts</a></li>
+        </ul>
+
+        <div class="nav-group-title">DevOps & Troubleshooting</div>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="#env-vars">Environment Variables</a></li>
+            <li class="nav-item"><a href="#rate-limits">Handling Rate Limits</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        
+        <section id="architecture">
+            <h1>Technical Maintenance Blueprint</h1>
+            <p>Welcome to the core documentation hub for the CampusBot RAG platform. This document acts as a layout map for systems operations, code architecture, and database maintenance tracking.</p>
+            
+            <h2>System Architecture</h2>
+            <p>CampusBot runs a hybrid lexical and semantic Retrieval-Augmented Generation system. Instead of generating text out of thin air, it reads user intent, dynamically queries a specialized internal knowledge matrix, and pipes structured context down to the LLM backend.</p>
+            
+            <div class="info-note">
+                <strong>Performance Core:</strong> Vector lookups use an optimized <code>FAISS</code> database index saved explicitly onto disk space. This completely bypasses processing bottlenecks or repeated data parsing cycles on app startup.
+            </div>
+        </section>
+
+        <section id="components">
+            <h2>Core Components</h2>
+            <p>The system is modularized cleanly into separated operational modules across the package root:</p>
+            
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>File Engine</th>
+                        <th>Primary Responsibility</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>app.py</code></td>
+                        <td>Flask routing server. Governs endpoints and asynchronously serves web context layers.</td>
+                        <td><code>Flask</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>engine.py</code></td>
+                        <td>Central execution gateway orchestrating processors, lookups, and context formatting.</td>
+                        <td>Internal Modules</td>
+                    </tr>
+                    <tr>
+                        <td><code>retrieval.py</code></td>
+                        <td>Handles dual-track vector space generation, Reciprocal Rank Fusion calculations, and index building.</td>
+                        <td><code>FAISS</code>, <code>pypdf</code>, <code>BM25</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>query_processor.py</code></td>
+                        <td>Parses text to verify security boundaries (moderation validation) and expands complex queries.</td>
+                        <td><code>langchain_google_genai</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>prompts.py</code></td>
+                        <td>Centralized ledger managing formatting guidelines and structural JSON return maps.</td>
+                        <td>Standard String Forms</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="add-data">
+            <h2>Adding New Data/PDFs</h2>
+            <p>When official university notices, examination policies, or structural amendments change, follow this sequence to securely commit information into the engine's long-term memory matrix:</p>
+            
+            <ol style="margin-left: 20px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 8px;">
+                <li>Place your clean, newly gathered <code>.pdf</code> document inside the <code>campus-assistant/data/</code> folder directory.</li>
+                <li>To avoid corruption crashes caused by bad parsing structures (such as scraped web login screens named as PDFs), execute your validation cleaner utility:
+                    <pre>python cleanup_pdfs.py</pre>
+                </li>
+                <li>Because the engine uses persistent caching, you must completely remove old local artifacts so it re-indexes your new files. Clear out the directory storage folder:
+                    <pre>rm -rf faiss_index/</pre>
+                </li>
+                <li>Re-run the deployment pipeline. The initialization routine will safely step through new text extraction loops, generate token matrices, and rebuild a local production cache automatically.</li>
+            </ol>
+            
+            <div class="info-warning">
+                <strong>Attention:</strong> If you add over 100 new structural text blocks at once, the system's defensive batch loop will activate to protect your credentials from 429 quota exceptions. Let the runtime process scale down securely without forcing a kill command on the terminal session.
+            </div>
+        </section>
+
+        <section id="update-models">
+            <h2>Updating AI Models</h2>
+            <p>If you need to change your underlying models (e.g., swapping to a newer embedding model or upgrading to a different generative LLM), open <code>retrieval.py</code> and <code>engine.py</code> and look for the constructor blocks:</p>
+            <pre># Changing Embeddings Engine (Inside retrieval.py)
+self.embeddings = GoogleGenerativeAIEmbeddings(model="models/your-new-embedding-model")
+
+# Changing Chat Synthesis Model (Inside engine.py & query_processor.py)
+self.llm = ChatGoogleGenerativeAI(model="models/your-new-llm-model", temperature=0.1)</pre>
+        </section>
+
+        <section id="modify-prompt">
+            <h2>Modifying System Instructions & Prompt Rules</h2>
+            <p>The AI's operational rules, behavior guidelines, and JSON structures are decoupled from the code and live entirely inside <code>prompts.py</code>.</p>
+            <p>If you need to adapt the bot's behavior for a specialized administrative department, open <code>prompts.py</code> and modify the <code>RAG_SYSTEM_PROMPT</code> string. Ensure any custom system prompt additions still instruct the model to return a valid JSON structure matching this required signature:</p>
+            <pre>{
+  "answer": "...",
+  "inap": false,
+  "source_file": "...",
+  "confidence": "high"
+}</pre>
+        </section>
+
+        <section id="env-vars">
+            <h2>Environment Variables Reference</h2>
+            <p>The system reads operational secrets entirely from an uncommitted <code>.env</code> file root configuration block. Keep this secure:</p>
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Variable Key</th>
+                        <th>Functional Assignment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>GOOGLE_API_KEY</code></td>
+                        <td>Global authorization token used for text embeddings processing and LLM inference generation.</td>
+                    </tr>
+                    <tr>
+                        <td><code>FLASK_ENV</code></td>
+                        <td>Controls environment configurations (Set to <code>production</code> on remote systems).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="rate-limits">
+            <h2>Handling Rate Limits (429 Resource Exhausted)</h2>
+            <p>If your logs show a <code>429 RESOURCE_EXHAUSTED</code> error during system builds, it means the API is hitting rate thresholds. The pipeline includes built-in exponential backoff handlers via the <code>@retry</code> framework to gracefully handle this:</p>
+            <pre>@retry(
+    wait=wait_exponential(multiplier=2, min=4, max=60), 
+    stop=stop_after_attempt(5)
+)
+def safe_add_chunks(db, chunk_batch):
+    db.add_documents(chunk_batch)</pre>
+            <p>If rate limits continue to trigger on large datasets, modify the <code>batch_size</code> variable down to <code>2</code> or <code>3</code>, and increment the <code>delay_seconds</code> parameter inside <code>retrieval.py</code> to extend the API's cooling-off time between requests.</p>
+        </section>
+    </main>
+
+    <script>
+        // Interactive sidebar scrolling active tracker
+        window.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    if (entry.intersectionRatio > 0) {
+                        document.querySelectorAll('.nav-item a').forEach(nav => nav.style.color = '#2d3748');
+                        document.querySelector(`.nav-item a[href="#${id}"]`).style.color = '#7b1113';
+                    }
+                });
+            });
+            document.querySelectorAll('section').forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
