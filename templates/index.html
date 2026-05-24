@@ -245,9 +245,14 @@
         indicator.style.display = 'block';
         chatBody.scrollTop = chatBody.scrollHeight;
 
+        // DYNAMIC ROUTING: Detects if you are running locally or on the cloud
+        const backendUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5001/chat'
+            : 'https://campus-bot-dtu.onrender.com/chat';
+
         try {
-            // FIXED: Target port 5001 and map endpoint to /chat to match app.py
-            const response = await fetch('http://localhost:5001/chat', {
+            // Target the dynamically resolved backend URL
+            const response = await fetch(backendUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: query })
@@ -262,7 +267,6 @@
         }
         chatBody.scrollTop = chatBody.scrollHeight;
     }
-
     function createBubble(text, className) {
         const el = document.createElement('div');
         el.className = `msg-bubble ${className}`;
