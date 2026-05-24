@@ -1,0 +1,4 @@
+# format: old==>new
+AIzaSyCRGyWp-YggcdvnQ1BipncuwCQNvcw3g2w==>REDACTED_GOOGLE_API_KEY
+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==>REDACTED_OPENAI_KEY
+# add other secrets similarly

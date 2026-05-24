@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interview Prep - Advanced RAG</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #2c3e50; max-width: 1000px; margin: 40px auto; padding: 20px; }
+        .section { margin-bottom: 30px; padding: 20px; border-radius: 8px; background: #fff; border: 1px solid #e1e4e8; }
+        .q-box { background: #fff8ee; padding: 15px; border-left: 4px solid #EA9320; margin-bottom: 15px; }
+        .ans { color: #34495e; font-style: italic; margin-top: 5px; }
+        h1 { color: #EA9320; text-align: center; text-transform: uppercase; }
+        h2 { border-bottom: 2px solid #EA9320; display: inline-block; padding-bottom: 5px; }
+        strong { color: #e67e22; }
+    </style>
+</head>
+<body>
+    <h1>Technical Interview Cheat Sheet</h1>
+
+    <div class="section">
+        <h2>🚀 Core Advanced RAG Concepts</h2>
+        
+        <div class="q-box">
+            <strong>Q: Why did you use Hybrid Search (FAISS + BM25)?</strong>
+            <div class="ans">"Vector search (FAISS) captures semantic meaning but often misses specific keywords like subject codes (e.g., 'AC-101') or specific dates. BM25 ensures exact keyword matching. Combining them via <strong>Reciprocal Rank Fusion (RRF)</strong> provides the best of both worlds: context awareness and keyword precision."</div>
+        </div>
+
+        <div class="q-box">
+            <strong>Q: Explain your RRF (Reciprocal Rank Fusion) logic.</strong>
+            <div class="ans">"I used the formula: <code>1 / (60 + rank)</code>. I gave semantic results a 0.7 weight and keyword results 0.3. This prioritizes meaning while ensuring that if a specific term is found via keyword search, it still influences the final top-5 chunks."</div>
+        </div>
+
+        <div class="q-box">
+            <strong>Q: Why Query Decomposition/Multi-Query?</strong>
+            <div class="ans">"User queries are often multi-faceted (e.g., 'What are the fees AND the attendance rules?'). A single vector search might only find chunks for one part. My <code>query_processor</code> breaks this into sub-questions, retrieves for each, and fuses the results to ensure 100% coverage."</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🛠 Implementation Specifics</h2>
+        
+        <div class="q-box">
+            <strong>Q: Why <code>pdfplumber</code> over <code>pypdf</code>?</strong>
+            <div class="ans">"University documents are table-heavy. Standard parsers often mash table rows into a single string, losing structural relationships. <code>pdfplumber</code> preserves whitespace and visual alignment, which is critical for the LLM to understand data like fee structures or exam schedules."</div>
+        </div>
+
+        <div class="q-box">
+            <strong>Q: How do you handle "Inappropriate Language" or "Topic Changes"?</strong>
+            <div class="ans">"I implemented a <strong>Manager LLM</strong> step in the query processor. It flags inappropriate input <em>before</em> retrieval to save costs. It also detects topic drift to clear the conversation history, preventing 'context contamination' where old info confuses new answers."</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📊 Evaluation (The "Senior" Part)</h2>
+        
+        <div class="q-box">
+            <strong>Q: How do you know this system is actually better?</strong>
+            <div class="ans">"The system is designed for <strong>RAGAS Evaluation</strong>. By outputting structured JSON (answer, context, source), we can measure: 
+            1. <strong>Faithfulness:</strong> Is the answer derived solely from the provided PDF?
+            2. <strong>Answer Relevancy:</strong> Does the answer actually solve the student's problem?"</div>
+        </div>
+    </div>
+</body>
+</html>
