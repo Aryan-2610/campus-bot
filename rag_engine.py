@@ -61,6 +61,7 @@ class CampusRAGEngine:
 if __name__ == "__main__":
     engine = CampusRAGEngine()
     
-    user_query = "What is the  eligibiltiy for placement cordinators?"
+    user_query = "who is dean of dtu"
+
     print(f"\nUser: {user_query}")
     print(f"Bot: {engine.get_response(user_query)}")

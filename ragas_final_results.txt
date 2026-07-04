@@ -1,0 +1,7 @@
+CampusBot - Final RAGAS Evaluation Averages (Vertex AI + Local Embeddings)
+
+Faithfulness: 0.9400
+Answer Relevancy: 0.8893
+Context Precision: 0.9000
+Context Recall: 0.9200
+Answer Correctness: 0.8920

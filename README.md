@@ -128,6 +128,38 @@ The LLM layer returns sanitized JSON responses to maintain a clean UI.
 
 ---
 
+## Evaluation & Performance Metrics
+
+To ensure high reliability, accuracy, and rapid response times for Delhi Technological University (DTU) students and faculty, CampusBot has been benchmarked using industry-standard RAG evaluation frameworks and latency testing.
+
+### 1. RAGAS Quality Evaluation
+We evaluated CampusBot using the **RAGAS (Retrieval Augmented Generation Assessment)** framework with Vertex AI and local embeddings. The system achieves exceptional performance across all primary metrics:
+
+| Metric | Score | Description |
+| :--- | :---: | :--- |
+| **Faithfulness** | **0.9400** | Measures how factually accurate the generated answer is grounded in the retrieved DTU context without hallucinations. |
+| **Context Recall** | **0.9200** | Measures the retriever's ability to fetch all necessary institutional rules, policies, and circulars needed to answer the query. |
+| **Context Precision** | **0.9000** | Evaluates whether the most relevant document chunks are ranked at the very top of the retrieval results. |
+| **Answer Correctness** | **0.8920** | Assesses the overall accuracy and semantic alignment of the answer against ground-truth institutional facts. |
+| **Answer Relevancy** | **0.8893** | Measures how directly and concisely the answer addresses the user's specific prompt without redundancy. |
+
+> [!NOTE]
+> High scores across **Faithfulness (94%)** and **Context Recall (92%)** validate that the hybrid FAISS + BM25 retrieval architecture with Reciprocal Rank Fusion (RRF) effectively captures complex policy amendments and technical terms while minimizing hallucinations.
+
+---
+
+### 2. Latency Benchmark
+System latency was benchmarked across end-to-end query execution (including hybrid retrieval, RRF fusion scoring, and Gemini LLM response generation):
+
+- **Average Latency**: `2.687 seconds/query`
+- **Fastest Query**: `2.456 seconds`
+- **Slowest Query**: `3.074 seconds`
+- **Total Execution Time**: `13.434 seconds` across 5 complex institutional queries.
+
+By pre-computing local FAISS and BM25 indices on disk, CampusBot achieves sub-3-second average response times with zero runtime embedding generation overhead.
+
+---
+
 ## Directory Structure
 
 ```text
@@ -141,14 +173,24 @@ campus-bot/
 │   ├── index.pkl
 │   └── bm25.pkl
 │
+├── eval/
+│   ├── generate_eval_dataset.py  # Script to generate evaluation datasets
+│   ├── ragas_eval_hf.py          # RAGAS evaluation using HuggingFace embeddings
+│   └── run_ragas_eval.py         # Main RAGAS evaluation pipeline
+│
 ├── templates/
 │   └── index.html
 │
 ├── .env
 ├── .gitignore
 ├── app.py
-├── rag_engine.py
-└── requirements.txt
+├── ingest.py                     # Document indexing and embedding pipeline
+├── latency_time.txt              # Latency benchmark results
+├── rag_engine.py                 # Core RAG retrieval and fusion logic
+├── ragas_detailed_results.csv    # Granular per-query RAGAS metrics
+├── ragas_final_results.txt       # Summary RAGAS evaluation averages
+├── requirements.txt
+└── time-test.py                  # Automated latency benchmarking script
 ```
 
 ---

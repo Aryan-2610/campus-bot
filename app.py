@@ -17,8 +17,8 @@ CORS(app)
 try:
     bot_engine = CampusRAGEngine()
 except SystemExit:
-    print("❌ Server startup aborted: Local database cache ('db/') is missing.")
-    print("👉 Please run 'python ingest.py' before launching app.py.")
+    print(" Server startup aborted: Local database cache ('db/') is missing.")
+    print(" Please run 'python ingest.py' before launching app.py.")
     os._exit(1)
 
 @app.route("/")

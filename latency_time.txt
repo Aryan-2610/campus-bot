@@ -1,0 +1,8 @@
+CAMPUSBOT LATENCY BENCHMARK
+
+Total Queries Processed : 5
+Total Execution Time    : 13.434 seconds
+
+Average Latency         : 2.687 seconds/query
+Fastest Query           : 2.456 seconds
+Slowest Query           : 3.074 seconds
